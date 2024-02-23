@@ -4,10 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Page</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            margin: 20px;
+        }
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            margin: 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
-<body  style="background-color: aqua;">
 
+<body  style="background-color: grey;">
 
-    
+<div style="display: flex; justify-content: center; align-items: center;"><h1>Бараанууд</h1></div>
+<div class = "grid-container">
+{% for item in page_obj %}
+    <div class="grid-item" style="background-color: white;width: 400px; display: flex;flex-direction: row;">
+        <div>
+            <img src="https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg" alt="image" style="width: 200px; height:100%; object-fit: fill;">
+        </div>
+        <div class="container" style="width: 200px; display: flex;flex-direction: column;padding: 12px;">
+          <h4><b>{{item.name}}</b></h4> 
+          <p>{{item.price}}₮</p> 
+          <p>Read More</p> 
+        </div>
+      </div>
+{% endfor %}
+</div>
+<div style="display: flex; justify-content: center; align-items: center;">
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div>
 </body>
 </html>
